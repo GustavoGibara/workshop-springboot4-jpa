@@ -8,15 +8,20 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
+import com.gibara.courseJava.entities.Category;
 import com.gibara.courseJava.entities.Order;
 import com.gibara.courseJava.entities.User;
 import com.gibara.courseJava.entities.Enums.OrderStatus;
+import com.gibara.courseJava.repositories.CategoryRepository;
 import com.gibara.courseJava.repositories.OrderRepository;
 import com.gibara.courseJava.repositories.UserRepository;
 
 @Configuration
 @Profile("test")
 public class TestConfig implements CommandLineRunner {
+
+    @Autowired
+    private CategoryRepository categoryRepository;
 
     @Autowired
     private UserRepository userRepository;
@@ -33,8 +38,14 @@ public class TestConfig implements CommandLineRunner {
         Order o2 = new Order(null, Instant.parse("2019-07-21T03:42:10Z"), OrderStatus.WAITING_PAYMENT, u2);
         Order o3 = new Order(null, Instant.parse("2019-07-22T15:21:22Z"), OrderStatus.DELIVERED, u1);
 
+        Category cat1 = new Category(null, "Electronics");
+        Category cat2 = new Category(null, "Books");
+        Category cat3 = new Category(null, "Computers");
+
         userRepository.saveAll(Arrays.asList(u1, u2));
         orderRepository.saveAll(Arrays.asList(o1, o2, o3));
+        categoryRepository.saveAll(Arrays.asList(cat1, cat2, cat3));
+
     }
 
 }

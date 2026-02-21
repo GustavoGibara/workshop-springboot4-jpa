@@ -1,17 +1,18 @@
 package com.gibara.courseJava.entities;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 
 @Entity
-@Table(name = "tb_products")
+@Table(name = "tb_product")
 public class Product implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -24,7 +25,8 @@ public class Product implements Serializable {
     private Double price;
     private String imgUrl;
 
-    private List<Category> categories = new ArrayList<>();
+    @Transient
+    private Set<Category> categories = new HashSet<>();
 
     public Product() {
 
@@ -78,7 +80,7 @@ public class Product implements Serializable {
         this.imgUrl = imgUrl;
     }
 
-    public List<Category> getCategories() {
+    public Set<Category> getCategories() {
         return categories;
     }
 
